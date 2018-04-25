@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:PageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SocialShare"
+             x:Class="SocialShare.MainPage"
+                BackgroundColor="#3498db">
+
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid VerticalOptions="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="80*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackLayout Grid.Column="1">
+            <Entry Placeholder="Username" PlaceholderColor="#bedef4"></Entry>
+            <Entry Placeholder="Password" PlaceholderColor="#bedef4" IsPassword="True"></Entry>
+            <Button Text="Login" BorderRadius="20" WidthRequest="100" BackgroundColor="#2980b9" TextColor="#FFFFFF" Command="{Binding LoginCommand}"></Button>
+            <Button Text="Register" BorderRadius="20" WidthRequest="100" BackgroundColor="#2980b9" TextColor="#FFFFFF"></Button>
+        </StackLayout>
+
+    </Grid>
+
+
+</local:PageBase>

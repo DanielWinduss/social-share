@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:PageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SocialShare"
+             xmlns:converters="clr-namespace:SocialShare.Converters;assembly=SocialShare"
+             x:Class="SocialShare.UserPage"
+                BackgroundColor="#3498db">
+
+    <ContentPage.BindingContext>
+        <local:UserPageViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Spacing="0">
+        <StackLayout Orientation="Horizontal" Padding="0,15,0,15">
+            <Image Source="search.png" WidthRequest="20" Margin="10,0,0,0"></Image>
+            <Entry Placeholder="Search" HorizontalOptions="FillAndExpand" Text="{Binding SearchTerm}" TextColor="#FFFFFF"></Entry>
+            <Image Source="user.png" WidthRequest="25" Margin="10,0,10,0" IsVisible="{Binding IsSearching, Converter={StaticResource InverseBooleanConverter}}"></Image>
+            <Image Source="cancel.png" WidthRequest="25" Margin="10,0,10,0" IsVisible="{Binding IsSearching}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelCommand}"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+        <ListView ItemsSource="{Binding SocialItems}" VerticalOptions="FillAndExpand" HasUnevenRows="True" IsVisible="{Binding IsSearching, Converter={StaticResource InverseBooleanConverter}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid BackgroundColor="{Binding BackgroundColour}" Padding="0,15,0,15">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="35"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Entry Grid.Column="2" Text="{Binding Username}" TextColor="{Binding ForegroundColour}"></Entry>
+                                <Image Grid.Column="1" Source="{Binding ImageSource}"></Image>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView ItemsSource="{Binding Names}" VerticalOptions="FillAndExpand" HasUnevenRows="True" IsVisible="{Binding IsSearching}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Name}" Margin="20" FontSize="Medium" TextColor="#FFFFFF"></Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+</local:PageBase>
